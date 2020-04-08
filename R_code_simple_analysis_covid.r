@@ -1,3 +1,5 @@
+setwd("C:"covid_az")
+
 install.packages("ggplot2")
 
 library(ggplot2)
