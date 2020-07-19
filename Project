@@ -131,4 +131,13 @@ ggplot(comb, aes(x=date)) +
   labs(title = "Volga River and Caspian Sea", 
        subtitle = "Observed Water Level Change: 2008-2020", 
        caption = "(based on data from Copernicus Global Land Service)")
+     
+
+################################### Correlation ##############################################
+
+ggscatter(comb, x = "sealevel", y = "riverlevel", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Caspian Sea", ylab = "Volga",
+          main = "Correlation Analysis")
   
