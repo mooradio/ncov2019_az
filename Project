@@ -214,3 +214,33 @@ plot(mean.sal.2019.crop, col = cld, main = "Mean SSS 2019")
 
 plot(mean.sal.2019.crop - mean.sal.2016.crop, col = cl, 
      main = "Difference between Mean Annual SSS 2019-2016")
+     
+     
+################################### Occurrence ##############################################
+
+
+setwd("~/Downloads/")
+library(easypackages)
+libraries("rgdal", "gdalUtils", 
+          "raster", "RStoolbox")
+
+a <- c("occurrence_40E_50Nv1_1_2019.tif", 
+       "occurrence_50E_50Nv1_1_2019.tif", 
+       "occurrence_40E_40Nv1_1_2019.tif", 
+       "occurrence_50E_40Nv1_1_2019.tif")
+
+e <- extent(40, 60, 30, 50) 
+template <- raster(e)
+proj4string(template) <- CRS('+proj=longlat')
+writeRaster(template, file = "Caspian.tif", 
+            format = "GTiff", overwrite = T)
+mosaic_rasters(gdalfile = a, 
+               dst_dataset = "Caspian.tif", 
+               of = "GTiff")
+
+occurrence <- raster("Caspian.tif")
+ext <- c(46, 55, 36, 48) 
+occurrence.crop <- crop(occurrence, ext)
+cl <- colorRampPalette(c("white", "red", 
+                         "blue"))(100)
+plot(occurrence.crop, col = cl)
