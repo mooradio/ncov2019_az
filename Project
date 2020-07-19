@@ -182,3 +182,32 @@ boxplot(sst.mult.crop, outline = F,
 plot(sst.mult.crop$Mean.SST.2003, sst.mult.crop$Mean.SST.2018, 
      xlab="SST 2003", ylab="SST 2018", main = "Plot Points Variation")
 abline(0, 1, col = "red")
+
+################################### SSS ##############################################
+
+setwd("~/Downloads/Casp/sss/")
+library(raster)
+library(ncdf4)
+
+ext <- c(47, 54, 37, 47) 
+cl <- colorRampPalette(c("blue", "yellow", 
+                         "red", "brown"))(100)
+cld <- colorRampPalette(c("blue", "lightgreen", 
+                          "red"))(100)
+                          
+# 2019
+sal2019_list <- list.files(pattern = "SSS_L3_monthly_2019")
+sal.2019 <- lapply(sal2018_list, raster, 
+                   varname = "sss_smap", full.names=T)
+sal.2019 <- stack(sal.2019)
+mean.sal.2019 <- calc(sal.2019, fun = mean, na.rm = T)
+mean.sal.2019.crop <- crop(mean.sal.2019, ext)
+writeRaster(mean.sal.2019.crop, 
+            "mean.sal.2019.crop.tif", overwrite=T)
+
+
+par(mfrow=c(2,2))
+plot(mean.sal.2016.crop, col=cld, main = "Mean SSS 2016")
+plot(mean.sal.2017.crop, col=cld, main = "Mean SSS 2017")
+plot(mean.sal.2018.crop, col=cld, main = "Mean SSS 2018")
+plot(mean.sal.2019.crop, col=cld, main = "Mean SSS 2019")
