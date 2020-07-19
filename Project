@@ -141,12 +141,8 @@ ggscatter(comb, x = "sealevel", y = "riverlevel",
           xlab = "Caspian Sea", ylab = "Volga",
           main = "Correlation Analysis")
   
-caspts <- ts(comb$sealevel, 
-             start = c(2009, 1), 
-             frequency = 12)
-volgats <- ts(comb$riverlevel, 
-              start = c(2009, 1), 
-              frequency = 12)
+caspts <- ts(comb$sealevel, start = c(2009, 1), frequency = 12)
+volgats <- ts(comb$riverlevel, tart = c(2009, 1), requency = 12)
 
 plot(decompose(caspts))
 plot(decompose(volgats))
