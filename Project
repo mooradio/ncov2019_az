@@ -83,7 +83,6 @@ library(lubridate)
 vg_df2 = select(vg_df, -1, -2, -5)
 colnames(vg_df2) <- c("date", "riverlevel")
 
-
 vg_df2$date <- floor_date(vg_df2$date, "month")
 vg_df2$date <- as.Date(vg_df2$date, "%Y/%m/%d" )
 vg_df3 <-aggregate( riverlevel ~ date , vg_df2, mean )
