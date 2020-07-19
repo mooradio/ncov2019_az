@@ -203,11 +203,11 @@ sal.2019 <- stack(sal.2019)
 mean.sal.2019 <- calc(sal.2019, fun = mean, na.rm = T)
 mean.sal.2019.crop <- crop(mean.sal.2019, ext)
 writeRaster(mean.sal.2019.crop, 
-            "mean.sal.2019.crop.tif", overwrite=T)
+            "mean.sal.2019.crop.tif", overwrite = T)
 
 
 par(mfrow=c(2,2))
-plot(mean.sal.2016.crop, col=cld, main = "Mean SSS 2016")
-plot(mean.sal.2017.crop, col=cld, main = "Mean SSS 2017")
-plot(mean.sal.2018.crop, col=cld, main = "Mean SSS 2018")
-plot(mean.sal.2019.crop, col=cld, main = "Mean SSS 2019")
+plot(mean.sal.2016.crop, col = cld, main = "Mean SSS 2016")
+plot(mean.sal.2017.crop, col = cld, main = "Mean SSS 2017")
+plot(mean.sal.2018.crop, col = cld, main = "Mean SSS 2018")
+plot(mean.sal.2019.crop, col = cld, main = "Mean SSS 2019")
