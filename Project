@@ -53,3 +53,26 @@ legend("bottomleft", legend = c("Observed","Forecasted"),
        bty = "n", lty = 1, lwd = 2, cex = 1)
 
 grid(col = "gray", lty = "dotted")
+
+################################### river level ##############################################
+
+setwd("~/Downloads/Casp/riverlevel/")
+library(rjson)
+library(GGally)
+volgaj<-fromJSON(file = "c_gls_WL_202007110030_0000000011934_ALTI_V2.1.0.json")
+volgadata <- volgaj[["data"]]
+vg_df <- do.call(rbind.data.frame, volgadata)
+vg_df$datetime <- as.Date(vg_df$datetime, "%Y/%m/%d" )
+
+ggplot(vg_df, aes(x=time,y=water_surface_height_above_reference_datum)) + 
+  geom_line(col="aquamarine4", size=1.2) + 
+  xlab(NULL) + ylab("meters (m)") + 
+  labs(title = "Volga River", 
+       subtitle = "Observed Water Level Change: 2008-2020", 
+       caption = "(based on data from Copernicus Global Land Service)") +
+  theme_linedraw(base_size = 13) + 
+  theme(axis.text = element_text(colour = "black", size = rel(0.9))) + 
+  geom_smooth(method = "lm", ) + 
+  scale_x_continuous(n.breaks = 8) +
+  scale_y_continuous(n.breaks = 8)
+  
