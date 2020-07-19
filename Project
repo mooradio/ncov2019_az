@@ -52,4 +52,4 @@ legend("bottomleft", legend = c("Observed","Forecasted"),
        col = c("aquamarine4", "blue"), text.font = 3, 
        bty = "n", lty = 1, lwd = 2, cex = 1)
 
-grid(col = "lightgray", lty = "dotted")
+grid(col = "gray", lty = "dotted")
