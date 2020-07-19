@@ -154,10 +154,16 @@ setwd("~/Downloads/Casp/sst/")
 library(raster)
 
 ext <- c(46, 55, 36, 48) 
-cl <- colorRampPalette(c("darkblue","blue1", "yellow", "red", "brown"))(100)
+
+cl <- colorRampPalette(c("darkblue","blue1", "yellow", 
+                         "red", "brown"))(100)
+
 sst_list <- list.files(pattern = "MODISA")
 sst <- lapply(sst_list, raster, full.names=T)
-names(sst) <- c("Mean SST 2003", "Mean SST 2008", "Mean SST 2013", "Mean SST 2018")
+
+names(sst) <- c("Mean SST 2003", "Mean SST 2008", 
+                "Mean SST 2013", "Mean SST 2018")
+
 sst.multitemp <- stack(sst)
 sst.mult.crop <- crop(sst.multitemp, ext)
 plot(sst.mult.crop, col=cl)
