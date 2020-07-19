@@ -20,7 +20,7 @@ ggplot(cp_df, aes(x = time, y=water_surface_height_above_reference_datum)) +
   curvature = .4, arrow = arrow(length = unit(2, "mm"))) +
   annotate(geom = "text", x = 1998, y = -26, label = "The highest level in last 50 years", size=4.5, hjust = "left")
 
-################################### time series ##############################################
+################################### Caspian time series ##############################################
 
 library(dplyr)
 library(lubridate)
@@ -75,4 +75,19 @@ ggplot(vg_df, aes(x = time, y = water_surface_height_above_reference_datum)) +
   geom_smooth(method = "lm", ) + 
   scale_x_continuous(n.breaks = 8) +
   scale_y_continuous(n.breaks = 8)
+  
+################################### Volga time series ##############################################
+
+library(dplyr)
+library(lubridate)
+vg_df2 = select(vg_df, -1, -2, -5)
+colnames(vg_df2) <- c("date", "riverlevel")
+
+
+vg_df2$date <- floor_date(vg_df2$date, "month")
+vg_df2$date <- as.Date(vg_df2$date, "%Y/%m/%d" )
+vg_df3 <-aggregate( riverlevel ~ date , vg_df2, mean )
+volts <- ts(vg_df3$riverlevel, start = c(2008, 7), frequency = 12)
+
+plot(decompose(volts))
   
