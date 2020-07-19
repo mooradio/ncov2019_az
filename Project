@@ -167,3 +167,9 @@ names(sst) <- c("Mean SST 2003", "Mean SST 2008",
 sst.multitemp <- stack(sst)
 sst.mult.crop <- crop(sst.multitemp, ext)
 plot(sst.mult.crop, col=cl)
+
+cld <- colorRampPalette(c("mediumblue", "royalblue", "seagreen4", 
+                          "lawngreen", "orange1", "orangered4" ))(100)
+diff <- sst.mult.crop$SST.2018 - sst.mult.crop$SST.2003
+plot(diff, col=cld, main = 
+       "Difference between Mean Annual SST 2018-2003")
