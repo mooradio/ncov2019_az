@@ -89,4 +89,40 @@ vg_df3 <-aggregate( riverlevel ~ date , vg_df2, mean )
 volts <- ts(vg_df3$riverlevel, start = c(2008, 7), frequency = 12)
 
 plot(decompose(volts))
+
+################################### Comparison ##############################################
+
+library(readxl)
+library(lubridate)
+library(ggplot2)
+library(ggpubr)
+
+volga_df <- readxl::read_excel("~/Downloads/volgadata.xlsx")
+casp_df <- readxl::read_excel("~/Downloads/caspdata.xlsx")
+casp_df$datetime <- as.Date(casp_df$datetime, "%Y/%m/%d" )
+volga_df$datetime <- as.Date(volga_df$datetime, "%Y/%m/%d" )
+
+casp_df$datetime <- floor_date(casp_df$datetime, "month")
+casp_df$datetime <- as.Date(casp_df$datetime, "%Y/%m/%d" )
+volga_df$datetime <- floor_date(volga_df$datetime, "month")
+volga_df$datetime <- as.Date(volga_df$datetime, "%Y/%m/%d" )
+
+casp_agg <- aggregate(casp_df$water_surface_height_above_reference_datum ~ casp_df$datetime , casp_df, mean )
+volga_agg <- aggregate(volga_df$water_surface_height_above_reference_datum ~ volga_df$datetime , volga_df, mean )
+
+colnames(casp_agg) <- c("date", "waterlevelcasp")
+colnames(volga_agg) <- c("date", "waterlevelvolga")
+
+comb <- data.frame(casp_agg$date, casp_agg$waterlevelcasp, volga_agg$waterlevelvolga)
+colnames(comb) <- c("date", "sealevel","riverlevel")
+
+ggplot(comb, aes(x=date)) + 
+  geom_line(aes(y = sealevel), color = "darkred") + 
+  geom_line(aes(y = riverlevel), color="steelblue")+ 
+  theme_linedraw(base_size = 13) + 
+  theme(axis.text = element_text(colour = "black", size = rel(0.9)))+
+  xlab("years") + ylab("meters (m)") + 
+  labs(title = "Volga River and Caspian Sea", 
+       subtitle = "Observed Water Level Change: 2008-2020", 
+       caption = "(based on data from Copernicus Global Land Service)")
   
