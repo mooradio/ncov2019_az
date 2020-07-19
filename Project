@@ -107,13 +107,19 @@ casp_df$datetime <- as.Date(casp_df$datetime, "%Y/%m/%d" )
 volga_df$datetime <- floor_date(volga_df$datetime, "month")
 volga_df$datetime <- as.Date(volga_df$datetime, "%Y/%m/%d" )
 
-casp_agg <- aggregate(casp_df$water_surface_height_above_reference_datum ~ casp_df$datetime , casp_df, mean )
-volga_agg <- aggregate(volga_df$water_surface_height_above_reference_datum ~ volga_df$datetime , volga_df, mean )
+casp_agg <- aggregate(
+  casp_df$water_surface_height_above_reference_datum ~ casp_df$datetime , 
+  casp_df, mean)
+volga_agg <- aggregate(
+  volga_df$water_surface_height_above_reference_datum ~ volga_df$datetime , 
+  volga_df, mean)
 
 colnames(casp_agg) <- c("date", "waterlevelcasp")
 colnames(volga_agg) <- c("date", "waterlevelvolga")
 
-comb <- data.frame(casp_agg$date, casp_agg$waterlevelcasp, volga_agg$waterlevelvolga)
+comb <- data.frame(casp_agg$date, 
+                   casp_agg$waterlevelcasp, 
+                   volga_agg$waterlevelvolga)
 colnames(comb) <- c("date", "sealevel","riverlevel")
 
 ggplot(comb, aes(x=date)) + 
