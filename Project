@@ -64,8 +64,8 @@ volgadata <- volgaj[["data"]]
 vg_df <- do.call(rbind.data.frame, volgadata)
 vg_df$datetime <- as.Date(vg_df$datetime, "%Y/%m/%d" )
 
-ggplot(vg_df, aes(x=time,y=water_surface_height_above_reference_datum)) + 
-  geom_line(col="aquamarine4", size=1.2) + 
+ggplot(vg_df, aes(x = time, y = water_surface_height_above_reference_datum)) + 
+  geom_line(col = "aquamarine4", size = 1.2) + 
   xlab(NULL) + ylab("meters (m)") + 
   labs(title = "Volga River", 
        subtitle = "Observed Water Level Change: 2008-2020", 
