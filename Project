@@ -35,3 +35,21 @@ ts1 <- ts(cp_df3$sealevel, start = c(1992, 9), frequency = 12)
 
 plot(decompose(ts1)) 
 
+################################### forecast ##############################################
+
+library(forecast)
+library(tseries)
+
+autoArimaFit <- auto.arima(ts1, stationary = F, seasonal = T)
+
+plot(forecast(autoArimaFit, h = 24),
+     type = "l", col = "aquamarine4", lwd = 2,
+     main = "CSL forecast for 2021-2022",
+     col.main="gray2", font.main = 2, cex.main = 1.5,
+     ylab = "meters (m)", xlab = "years")
+
+legend("bottomleft", legend = c("Observed","Forecasted"), 
+       col = c("aquamarine4", "blue"), text.font = 3, 
+       bty = "n", lty = 1, lwd = 2, cex = 1)
+
+grid(col = "lightgray", lty = "dotted")
