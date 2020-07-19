@@ -173,3 +173,12 @@ cld <- colorRampPalette(c("mediumblue", "royalblue", "seagreen4",
 diff <- sst.mult.crop$SST.2018 - sst.mult.crop$SST.2003
 plot(diff, col=cld, main = 
        "Difference between Mean Annual SST 2018-2003")
+    
+     
+       
+boxplot(sst.mult.crop, outline = F, 
+        axes = T, las=1, main = "Mean Annual SST Variations")
+
+plot(sst.mult.crop$Mean.SST.2003, sst.mult.crop$Mean.SST.2018, 
+     xlab="SST 2003", ylab="SST 2018", main = "Plot Points Variation")
+abline(0, 1, col = "red")
